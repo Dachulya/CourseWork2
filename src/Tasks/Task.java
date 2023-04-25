@@ -1,5 +1,7 @@
 package Tasks;
 
+import exception.IncorrectArgumentException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,21 +16,6 @@ public abstract class Task {
         return id;
     }
 
-    public static int getIdGenerator() {
-        return idGenerator;
-    }
-
-    public static void setIdGenerator(int idGenerator) {
-        Task.idGenerator = idGenerator;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public Type getType() {
         return type;
@@ -50,9 +37,7 @@ public abstract class Task {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+
     public abstract boolean appearsIn(LocalDate date);
 
     @Override
@@ -75,12 +60,34 @@ public abstract class Task {
     private final int id;
 
     public Task(String title, Type type, LocalDateTime dateTime, String description) {
-        this.title = title;
+        setTitle(title);
         this.type = type;
         id = ++idGenerator;
         this.dateTime = dateTime;
+        setDescription(description);
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        if (title == null || title.isBlank()) {
+            throw new IncorrectArgumentException("title");
+        }
+        this.title = title;
+    }
+
+
+    public void setDescription(String description) {
+        if (description == null || description.isBlank()) {
+            throw new IncorrectArgumentException("description");
+        }
         this.description = description;
     }
+
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     @Override
     public String toString() {
@@ -92,6 +99,7 @@ public abstract class Task {
                 ", id=" + id +
                 '}';
     }
+
 
     public enum Type {
         WORK,

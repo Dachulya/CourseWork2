@@ -3,11 +3,11 @@ package Tasks;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class MonthlyTask extends Task{
+public class MonthlyTask extends Task {
     @Override
     public boolean appearsIn(LocalDate date) {
         return date.isAfter(dateTime.toLocalDate()) || date.equals(dateTime.toLocalDate())
-                && date.getDayOfMonth()==dateTime.getDayOfMonth();
+                && date.getDayOfMonth() == dateTime.getDayOfMonth();
     }
 
 
