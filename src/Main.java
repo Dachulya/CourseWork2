@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static final Object ORMATTER = ;
+
     private static TaskService taskService;
 
     public static void main(String[] args) {
@@ -169,3 +169,4 @@ public class Main {
             System.out.println();
         }
     }
+}
